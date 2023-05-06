@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "180841714068",
+    "project_id": "gaf-and-firebase",
+    "storage_bucket": "gaf-and-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180841714068:android:e082dd2efe4efb94f53f81",
+        "android_client_info": {
+          "package_name": "com.example.gafandfirebase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "180841714068-ib9ebg1gdvcpgcehcrg5ihd5km148fij.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9pF6lOYNGXaYGCTYSNVjoZnmcf1SvORE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "180841714068-ib9ebg1gdvcpgcehcrg5ihd5km148fij.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
