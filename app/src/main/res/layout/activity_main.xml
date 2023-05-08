@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/my_primary"
+    android:background="@color/lavender"
     tools:context=".MainActivity"
     android:padding="16dp">
 
@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/page_title"
-            android:text="Notes"
+            android:text="Reminders"
             android:textSize="32sp"
             android:textColor="@color/white"
             android:textStyle="bold"/>
