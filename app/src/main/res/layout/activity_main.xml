@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/page_title"
-            android:text="Reminders"
+            android:text="My Notes"
             android:textSize="32sp"
             android:textColor="@color/white"
             android:textStyle="bold"/>

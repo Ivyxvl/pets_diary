@@ -47,7 +47,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
         titleEditText.setText(title);
         contentEditText.setText(content);
         if (isEditMode){
-            pageTitleTextView.setText("Edit your reminder");
+            pageTitleTextView.setText("Edit your note");
             deleteNoteTextView.setVisibility(View.VISIBLE);
         }
 
@@ -87,10 +87,10 @@ public class NoteDetailsActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
                     // note is added
-                    Utility.showToast(NoteDetailsActivity.this, "reminder set successfully");
+                    Utility.showToast(NoteDetailsActivity.this, "Note saved successfully");
                     finish();
                 } else{
-                    Utility.showToast(NoteDetailsActivity.this, "Failed while adding reminder");
+                    Utility.showToast(NoteDetailsActivity.this, "Failed while adding note");
                 }
             }
         });
@@ -108,10 +108,10 @@ public class NoteDetailsActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
                     // note is delete
-                    Utility.showToast(NoteDetailsActivity.this, "Reminder deleted successfully");
+                    Utility.showToast(NoteDetailsActivity.this, "Note deleted successfully");
                     finish();
                 } else{
-                    Utility.showToast(NoteDetailsActivity.this, "Failed while deleting reminder");
+                    Utility.showToast(NoteDetailsActivity.this, "Failed while deleting Note");
                 }
             }
         });

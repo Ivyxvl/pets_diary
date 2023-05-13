@@ -3,8 +3,6 @@ package com.example.gafandfirebase;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -40,15 +38,24 @@ public class MainActivity extends AppCompatActivity {
     void showMenu(){
         // TODO Display menu
         PopupMenu popupMenu = new PopupMenu(MainActivity.this, menuBtn);
+        popupMenu.getMenu().add("Reminders");
+        popupMenu.getMenu().add("My account");
+        popupMenu.getMenu().add("About us");
         popupMenu.getMenu().add("Logout");
         popupMenu.show();
         popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
+
+
                 if (menuItem.getTitle()=="Logout"){
                     FirebaseAuth.getInstance().signOut();
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     finish();
+                    return true;
+                } else if (menuItem.getTitle()=="My account"){
+                    startActivity(new Intent(MainActivity.this, AccountActivity.class));
+
                     return true;
                 }
                 return false;
