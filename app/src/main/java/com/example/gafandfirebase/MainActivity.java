@@ -55,7 +55,12 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 } else if (menuItem.getTitle()=="My account"){
                     startActivity(new Intent(MainActivity.this, AccountActivity.class));
-
+                    return true;
+                } else if (menuItem.getTitle()=="Reminders"){
+                    startActivity(new Intent(MainActivity.this, ReminderActivity.class));
+                    return true;
+                } else if (menuItem.getTitle()=="About us"){
+                    startActivity(new Intent(MainActivity.this, AboutusActivity.class));
                     return true;
                 }
                 return false;
