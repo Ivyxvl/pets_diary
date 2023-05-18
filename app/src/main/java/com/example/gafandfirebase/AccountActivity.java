@@ -21,7 +21,7 @@ public class AccountActivity extends AppCompatActivity {
 
         menuBtn = findViewById(R.id.menu_btn);
 
-        //menuBtn.setOnClickListener((v)-> showMenu());
+        menuBtn.setOnClickListener((v)-> showMenu());
     }
 
     void showMenu() {

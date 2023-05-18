@@ -1,39 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lavender"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
     tools:context=".AccountActivity"
-    android:padding="16dp">
+    >
 
     <RelativeLayout
+        android:id="@+id/header_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/title_bar_layout">
+        android:layout_height="240dp"
+        android:background="@color/lavender">
+
+        <RelativeLayout
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/title_bar_layout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/page_title"
+                android:text="My Account"
+                android:textSize="32sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"/>
+
+            <ImageButton
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:id="@+id/menu_btn"
+                android:src="@drawable/ic_baseline_menu_24"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                app:tint="@color/white"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginTop="-68dp"
+        android:layout_below="@id/header_layout"
+        android:padding="16dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/user_icon_imageview"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/add"
+            />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/page_title"
-            android:text="My Account"
+            android:text="Nickname"
+            android:paddingLeft="10dp"
             android:textSize="32sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            />
 
         <ImageButton
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:id="@+id/menu_btn"
-            android:src="@drawable/ic_baseline_menu_24"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            app:tint="@color/white"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            />
-    </RelativeLayout>
+
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/ic_baseline_edit_24"
+            app:tint="@android:color/secondary_text_material_light"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/email_edit_text_account"
+            android:inputType="textEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email Id"
+            android:textSize="20sp"
+            android:padding="16dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rounded_corner"/>
+
+        <TextView
+            android:id="@+id/password_edit_text_account"
+            android:inputType="textPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:textSize="20sp"
+            android:padding="16dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/rounded_corner"/>
+
+
+    </LinearLayout>
 
 
 
-</RelativeLayout>
+
+
+
+</LinearLayout>

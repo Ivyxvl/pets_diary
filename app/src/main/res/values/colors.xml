@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="my_primary">#E029FF</color>
-    <color name="lavender">#C8A2C8</color>
+    <color name="my_primary">#deaaff</color>
+    <color name="lavender">#f3c4fb</color>
 
 
     <color name="teal_200">#931FFF</color>
