@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class CreateAccountActivity extends AppCompatActivity {
 
-    EditText emailEditText, passwordEditText, confirmPasswordEditText;
+    public EditText emailEditText, passwordEditText, confirmPasswordEditText;
     Button createAccountBtn;
     ProgressBar progressBar;
     TextView loginBtnTextView;

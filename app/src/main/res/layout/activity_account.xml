@@ -9,6 +9,7 @@
     tools:context=".AccountActivity"
     >
 
+
     <RelativeLayout
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
@@ -54,8 +55,8 @@
 
         <ImageView
             android:id="@+id/user_icon_imageview"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@drawable/add"
             />
 
@@ -68,15 +69,7 @@
             android:textStyle="bold"
             />
 
-        <ImageButton
 
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/ic_baseline_edit_24"
-            app:tint="@android:color/secondary_text_material_light"
-            android:background="?attr/selectableItemBackgroundBorderless"/>
 
 
     </LinearLayout>
@@ -98,16 +91,7 @@
             android:layout_marginTop="12dp"
             android:background="@drawable/rounded_corner"/>
 
-        <TextView
-            android:id="@+id/password_edit_text_account"
-            android:inputType="textPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:textSize="20sp"
-            android:padding="16dp"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/rounded_corner"/>
+
 
 
     </LinearLayout>

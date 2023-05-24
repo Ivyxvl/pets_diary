@@ -6,6 +6,8 @@ public class Note {
     String title;
     String content;
     Timestamp timestamp;
+    String email;
+    String password;
 
     public Note() {
     }
@@ -33,4 +35,12 @@ public class Note {
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
+
+    public String getEmail(){return email;}
+
+    public void setEmail(String email){this.email = email;}
+
+    public String getPassword(){return password;}
+
+    public void setPassword(String password){this.password = password;}
 }

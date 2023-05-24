@@ -4,8 +4,8 @@
     <color name="lavender">#f3c4fb</color>
 
 
-    <color name="teal_200">#931FFF</color>
-    <color name="teal_700">#931FFF</color>
+    <color name="teal_200">#deaaff</color>
+    <color name="teal_700">#deaaff</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
