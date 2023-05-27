@@ -35,15 +35,16 @@
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/title_bar_layout"
+        android:layout_marginTop="15dp"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/title_bar_layout"
-        android:id="@+id/recyler_view"/>
+        android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/add_note_btn"
+        android:id="@+id/create_reminder"
         android:backgroundTint="@color/white"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"

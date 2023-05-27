@@ -5,6 +5,7 @@ import com.google.firebase.Timestamp;
 public class Note {
     String title;
     String content;
+
     Timestamp timestamp;
     String email;
     String password;

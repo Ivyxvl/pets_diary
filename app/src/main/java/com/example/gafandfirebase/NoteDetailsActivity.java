@@ -3,11 +3,13 @@ package com.example.gafandfirebase;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -55,7 +57,10 @@ public class NoteDetailsActivity extends AppCompatActivity {
 
         deleteNoteTextView.setOnClickListener((v)-> deleteNoteFromFirebase());
 
+
     }
+
+
 
     void saveNote(){
         String noteTitle = titleEditText.getText().toString();
@@ -98,11 +103,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
 
     void deleteNoteFromFirebase(){
         DocumentReference documentReference;
-
         documentReference = Utility.getCollectionReferenceForNotes().document(docId);
-
-
-
         documentReference.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
