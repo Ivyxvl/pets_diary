@@ -5,13 +5,14 @@ import com.google.firebase.Timestamp;
 public class Note {
     String title;
     String content;
+    String date, time;
 
     Timestamp timestamp;
     String email;
-    String password;
 
-    public Note() {
-    }
+
+
+    public Note() {}
 
     public String getTitle() {
         return title;
@@ -41,7 +42,19 @@ public class Note {
 
     public void setEmail(String email){this.email = email;}
 
-    public String getPassword(){return password;}
+    public String getDate() {
+        return date;
+    }
 
-    public void setPassword(String password){this.password = password;}
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 }

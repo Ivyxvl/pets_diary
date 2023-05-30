@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -13,8 +12,11 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
+import com.example.gafandfirebase.Model;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 
@@ -25,6 +27,7 @@ public class ReminderActivity extends AppCompatActivity {
     RecyclerView mRecyclerview;
     ArrayList<Model> dataholder = new ArrayList<Model>();                                               //Array list to add reminders and display in recyclerview
     myAdapter adapter;
+    ReminderAdapter reminderAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +35,10 @@ public class ReminderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_reminder);
 
         menuBtn = findViewById(R.id.menu_btn);
-        menuBtn.setOnClickListener((v)-> showMenu());
-
-
-
         mRecyclerview = (RecyclerView) findViewById(R.id.recyclerView);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        menuBtn.setOnClickListener((v)-> showMenu());
+        setupRecyclerView();
         mCreateRem = (FloatingActionButton) findViewById(R.id.create_reminder);                     //Floating action button to change activity
         mCreateRem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,10 +53,6 @@ public class ReminderActivity extends AppCompatActivity {
             Model model = new Model(cursor.getString(1), cursor.getString(2), cursor.getString(3));
             dataholder.add(model);
         }
-
-        adapter = new myAdapter(dataholder);
-        mRecyclerview.setAdapter(adapter);                                                          //Binds the adapter with recyclerview
-
     }
 
     @Override
@@ -63,6 +60,15 @@ public class ReminderActivity extends AppCompatActivity {
         finish();                                                                                   //Makes the user to exit from the app
         super.onBackPressed();
 
+    }
+
+    void setupRecyclerView() {
+        Query query = Utility.getCollectionReferenceForReminders().orderBy("timestamp",Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>()
+                .setQuery(query, Note.class).build();
+        mRecyclerview.setLayoutManager(new LinearLayoutManager(this));
+        reminderAdapter = new ReminderAdapter(options, this);
+        mRecyclerview.setAdapter(reminderAdapter);
     }
 
     void showMenu() {
@@ -94,5 +100,23 @@ public class ReminderActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        reminderAdapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        reminderAdapter.stopListening();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        reminderAdapter.notifyDataSetChanged();
     }
 }

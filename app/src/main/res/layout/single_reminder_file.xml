@@ -8,60 +8,56 @@
     android:backgroundTint="@color/white"
     android:background="@drawable/rounded_corner">
 
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtTitle"
+        android:text="reminder title"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_marginVertical="4dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/txtDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="date"
+            android:ellipsize="end"
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/txtTitle"
-                android:text="note title"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:layout_marginVertical="4dp"/>
+            android:maxLines="2"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:layout_marginVertical="4dp"/>
 
-            <TextView
-                android:id="@+id/txtTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="this can be note content that can be long"
-                android:maxLines="2"
-                android:ellipsize="end"
-                android:textColor="@color/black"
-                android:textSize="17sp"
-                android:layout_marginVertical="4dp"/>
+        <TextView
+            android:id="@+id/txtTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="time"
+            android:ellipsize="end"
 
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="71dp"
-            android:layout_height="52dp"
-            android:src="@drawable/ic_baseline_delete_24"
-            android:id="@+id/delete_btn"
+            android:maxLines="2"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:layout_marginVertical="4dp"
+            android:layout_marginLeft="20dp"
             />
-
 
     </LinearLayout>
 
 
-
-
-
     <TextView
-        android:id="@+id/txtDate"
-
+        android:id="@+id/reminder_timestamp_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="note title"
+        android:text="timestamp"
         android:textSize="12sp"
         android:gravity="right"
         android:layout_marginVertical="4dp"/>

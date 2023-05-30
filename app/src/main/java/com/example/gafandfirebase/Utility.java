@@ -19,11 +19,17 @@ public class Utility {
 
     static CollectionReference getCollectionReferenceForNotes(){
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        return FirebaseFirestore.getInstance().collection("reminder")
-                .document(currentUser.getUid()).collection("my_reminders");
+        return FirebaseFirestore.getInstance().collection("notes")
+                .document(currentUser.getUid()).collection("my_notes");
     }
 
     static String timestampToString(Timestamp timestamp){
         return new SimpleDateFormat("MM/dd/yyyy").format(timestamp.toDate());
+    }
+
+    static CollectionReference getCollectionReferenceForReminders(){
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        return FirebaseFirestore.getInstance().collection("reminder")
+                .document(currentUser.getUid()).collection("my_reminders");
     }
 }

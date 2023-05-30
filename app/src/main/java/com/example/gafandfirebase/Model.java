@@ -3,8 +3,11 @@ package com.example.gafandfirebase;
 
 //model class is used to set and get the data from the database
 
+import com.google.firebase.Timestamp;
+
 public class Model {
     String title, date, time;
+    Timestamp timestamp;
 
     public Model() {
     }
@@ -13,6 +16,14 @@ public class Model {
         this.title = title;
         this.date = date;
         this.time = time;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getTitle() {

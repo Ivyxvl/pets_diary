@@ -54,7 +54,4 @@ public class dbManager extends SQLiteOpenHelper {
         Cursor cursor = database.rawQuery(query, null);
         return cursor;
     }
-
-
-
 }

@@ -13,6 +13,7 @@ import android.widget.RemoteViews;
 
 import androidx.core.app.NotificationCompat;
 
+
 public class AlarmBroadcast extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -38,7 +39,7 @@ public class AlarmBroadcast extends BroadcastReceiver {
         contentView.setOnClickPendingIntent(R.id.flashButton, pendingSwitchIntent);
         contentView.setTextViewText(R.id.message, text);
         contentView.setTextViewText(R.id.date, date);
-        mBuilder.setSmallIcon(R.drawable.alarm);
+        mBuilder.setSmallIcon(R.drawable.ic_baseline_event_note_24);
         mBuilder.setAutoCancel(true);
         mBuilder.setOngoing(true);
         mBuilder.setAutoCancel(true);
@@ -59,7 +60,5 @@ public class AlarmBroadcast extends BroadcastReceiver {
 
         Notification notification = mBuilder.build();
         notificationManager.notify(1, notification);
-
-
     }
 }

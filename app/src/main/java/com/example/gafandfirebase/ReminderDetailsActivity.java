@@ -1,5 +1,6 @@
 package com.example.gafandfirebase;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
@@ -13,8 +14,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentReference;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -29,6 +37,11 @@ public class ReminderDetailsActivity extends AppCompatActivity {
     Button mSubmitbtn, mDatebtn, mTimebtn;
     EditText mTitledit;
     String timeTonotify;
+    ImageView deleteReminderImageViewBtn;
+    TextView pageTitleTextView;
+    String title, date, time, docId;
+    boolean isEditMode;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +52,29 @@ public class ReminderDetailsActivity extends AppCompatActivity {
         mDatebtn = (Button) findViewById(R.id.btnDate);                                             //assigned all the material reference to get and set data
         mTimebtn = (Button) findViewById(R.id.btnTime);
         mSubmitbtn = (Button) findViewById(R.id.btnSubmit);
+        pageTitleTextView = findViewById(R.id.page_title);
+        deleteReminderImageViewBtn = findViewById(R.id.delete_reminder_img_view);
+
+        // receive data
+        title = getIntent().getStringExtra("title");
+        date = getIntent().getStringExtra("date");
+        time = getIntent().getStringExtra("time");
+        docId = getIntent().getStringExtra("docId");
+
+        if (docId!=null && !docId.isEmpty()){
+            isEditMode = true;
+            deleteReminderImageViewBtn.setVisibility(View.GONE);
+        }
+
+        if (isEditMode){
+            pageTitleTextView.setText("Edit your reminder");
+            deleteReminderImageViewBtn.setVisibility(View.VISIBLE);
+        }
+        mTitledit.setText(title);
+        mDatebtn.setText(date);
+        mTimebtn.setText(time);
+
+        deleteReminderImageViewBtn.setOnClickListener((v)-> deleteReminderFromFirebase());
 
 
         mTimebtn.setOnClickListener(new View.OnClickListener() {
@@ -72,18 +108,63 @@ public class ReminderDetailsActivity extends AppCompatActivity {
 
                     }
                 }
-
-
+                Note note = new Note();
+                note.setTitle(title);
+                note.setDate(date);
+                note.setTime(time);
+                note.setTimestamp(Timestamp.now());
+                saveReminderToFirebase(note);
             }
         });
     }
+
+    /************************************************/
+    void saveReminderToFirebase(Note note){
+        DocumentReference documentReference;
+        if (isEditMode){
+            // update the reminder
+            documentReference = Utility.getCollectionReferenceForReminders().document(docId);
+        } else{
+            //create new reminder
+            documentReference = Utility.getCollectionReferenceForReminders().document();
+        }
+        documentReference.set(note).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    // reminder is added
+                    finish();
+                } else{
+                    Utility.showToast(ReminderDetailsActivity.this, "Failed while adding reminder");
+                }
+            }
+        });
+    }
+
+    void deleteReminderFromFirebase(){
+        DocumentReference documentReference;
+        documentReference = Utility.getCollectionReferenceForReminders().document(docId);
+        documentReference.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    // reminder is deleted
+                    Utility.showToast(ReminderDetailsActivity.this, "Reminder deleted successfully");
+                    finish();
+                } else{
+                    Utility.showToast(ReminderDetailsActivity.this, "Failed while deleting reminder");
+                }
+            }
+        });
+    }
+    /************************************************/
 
 
     private void processinsert(String title, String date, String time) {
         String result = new dbManager(this).addreminder(title, date, time);                  //inserts the title,date,time into sql lite database
         setAlarm(title, date, time);                                                                //calls the set alarm method to set alarm
         mTitledit.setText("");
-        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+
     }
 
     private void selectTime() {                                                                     //this method performs the time picker task
@@ -108,7 +189,7 @@ public class ReminderDetailsActivity extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                mDatebtn.setText(day + "." + (month + 1) + "." + year);                             //sets the selected date as test for button
+                mDatebtn.setText(day + "/" + (month + 1) + "/" + year);                             //sets the selected date as test for button
             }
         }, year, month, day);
         datePickerDialog.show();
@@ -153,11 +234,11 @@ public class ReminderDetailsActivity extends AppCompatActivity {
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
         String dateandtime = date + " " + timeTonotify;
-        DateFormat formatter = new SimpleDateFormat("d-M-yyyy hh:mm");
+        DateFormat formatter = new SimpleDateFormat("d/M/yyyy hh:mm");
         try {
             Date date1 = formatter.parse(dateandtime);
             am.set(AlarmManager.RTC_WAKEUP, date1.getTime(), pendingIntent);
-            Toast.makeText(getApplicationContext(), "Alarm", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Reminder successfully added", Toast.LENGTH_SHORT).show();
 
         } catch (ParseException e) {
             e.printStackTrace();

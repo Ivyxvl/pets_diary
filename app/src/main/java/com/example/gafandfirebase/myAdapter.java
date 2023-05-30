@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.Timestamp;
+
 import java.util.ArrayList;
 
 public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder> {
@@ -30,6 +32,7 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder> {
         holder.mTitle.setText(dataholder.get(position).getTitle());                                 //Binds the single reminder objects to recycler view
         holder.mDate.setText(dataholder.get(position).getDate());
         holder.mTime.setText(dataholder.get(position).getTime());
+        holder.mtimestamp.setText(Utility.timestampToString(dataholder.get(position).getTimestamp()));
     }
 
     @Override
@@ -39,7 +42,8 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder> {
 
     class myviewholder extends RecyclerView.ViewHolder {
 
-        TextView mTitle, mDate, mTime;
+        TextView mTitle, mDate, mTime, mtimestamp;
+
 
         public myviewholder(@NonNull View itemView) {
             super(itemView);
@@ -47,6 +51,7 @@ public class myAdapter extends RecyclerView.Adapter<myAdapter.myviewholder> {
             mTitle = (TextView) itemView.findViewById(R.id.txtTitle);                               //holds the reference of the materials to show data in recyclerview
             mDate = (TextView) itemView.findViewById(R.id.txtDate);
             mTime = (TextView) itemView.findViewById(R.id.txtTime);
+            mtimestamp = (TextView) itemView.findViewById(R.id.reminder_timestamp_text_view);
         }
     }
 }
