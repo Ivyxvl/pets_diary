@@ -1,8 +1,10 @@
 package com.example.gafandfirebase;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
@@ -10,6 +12,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,6 +30,7 @@ import com.google.firebase.firestore.DocumentReference;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -37,12 +41,13 @@ public class ReminderDetailsActivity extends AppCompatActivity {
     Button mSubmitbtn, mDatebtn, mTimebtn;
     EditText mTitledit;
     String timeTonotify;
-    ImageView deleteReminderImageViewBtn;
+    ImageView deleteReminderImageViewBtn, recordBtn;
     TextView pageTitleTextView;
     String title, date, time, docId;
     boolean isEditMode;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +59,10 @@ public class ReminderDetailsActivity extends AppCompatActivity {
         mSubmitbtn = (Button) findViewById(R.id.btnSubmit);
         pageTitleTextView = findViewById(R.id.page_title);
         deleteReminderImageViewBtn = findViewById(R.id.delete_reminder_img_view);
+        recordBtn = findViewById(R.id.btn_record);
+
+        mDatebtn.setText("date");
+        mTimebtn.setText("time");
 
         // receive data
         title = getIntent().getStringExtra("title");
@@ -75,7 +84,7 @@ public class ReminderDetailsActivity extends AppCompatActivity {
         mTimebtn.setText(time);
 
         deleteReminderImageViewBtn.setOnClickListener((v)-> deleteReminderFromFirebase());
-
+        recordBtn.setOnClickListener((v)-> recordSpeech());
 
         mTimebtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,6 +149,29 @@ public class ReminderDetailsActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void recordSpeech() {
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
+        try {
+            startActivityForResult(intent, 1);
+        } catch (Exception e) {
+            Toast.makeText(this, "Your device does not support Speech recognizer", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK && data != null) {
+                ArrayList<String> text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                mTitledit.setText(text.get(0));
+            }
+        }
+
+    }
+
 
     void deleteReminderFromFirebase(){
         DocumentReference documentReference;
