@@ -6,11 +6,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.view.View;
@@ -38,13 +41,15 @@ import java.util.Date;
 //this class is to take the reminders from the user and inserts into the database
 public class ReminderDetailsActivity extends AppCompatActivity {
 
-    Button mSubmitbtn, mDatebtn, mTimebtn;
-    EditText mTitledit;
-    String timeTonotify;
+    Button saveBtn, dateBtn, timeBtn;
+    EditText titleEditText;
+    String timeToNotify;
     ImageView deleteReminderImageViewBtn, recordBtn;
     TextView pageTitleTextView;
     String title, date, time, docId;
     boolean isEditMode;
+    private AlertDialog mDialog;
+    private AlertDialog.Builder mBuilder;
 
 
     @SuppressLint("MissingInflatedId")
@@ -53,17 +58,20 @@ public class ReminderDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder_details);
 
-        mTitledit = (EditText) findViewById(R.id.editTitle);
-        mDatebtn = (Button) findViewById(R.id.btnDate);                                             //assigned all the material reference to get and set data
-        mTimebtn = (Button) findViewById(R.id.btnTime);
-        mSubmitbtn = (Button) findViewById(R.id.btnSubmit);
+        titleEditText = (EditText) findViewById(R.id.editTitle);
+        dateBtn = (Button) findViewById(R.id.btnDate);                                             //assigned all the material reference to get and set data
+        timeBtn = (Button) findViewById(R.id.btnTime);
+        saveBtn = (Button) findViewById(R.id.btnSubmit);
         pageTitleTextView = findViewById(R.id.page_title);
         deleteReminderImageViewBtn = findViewById(R.id.delete_reminder_img_view);
         recordBtn = findViewById(R.id.btn_record);
 
-        mDatebtn.setText("date");
-        mTimebtn.setText("time");
-
+        dateBtn.setHint("DATE");
+        dateBtn.setHintTextColor(Color.WHITE);
+        dateBtn.setTextSize(16);
+        timeBtn.setHint("TIME");
+        timeBtn.setTextSize(16);
+        timeBtn.setHintTextColor(Color.WHITE);
         // receive data
         title = getIntent().getStringExtra("title");
         date = getIntent().getStringExtra("date");
@@ -79,42 +87,67 @@ public class ReminderDetailsActivity extends AppCompatActivity {
             pageTitleTextView.setText("Edit your reminder");
             deleteReminderImageViewBtn.setVisibility(View.VISIBLE);
         }
-        mTitledit.setText(title);
-        mDatebtn.setText(date);
-        mTimebtn.setText(time);
+        titleEditText.setText(title);
+        dateBtn.setText(date);
+        timeBtn.setText(time);
 
-        deleteReminderImageViewBtn.setOnClickListener((v)-> deleteReminderFromFirebase());
+        deleteReminderImageViewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBuilder = new AlertDialog.Builder(ReminderDetailsActivity.this);
+                mBuilder.setMessage("Are you sure you want to delete this reminder?");
+                mBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteReminderFromFirebase();
+                    }
+                });
+
+                mBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                mDialog = mBuilder.create();
+                mDialog.show();
+                mDialog.setCanceledOnTouchOutside(false);
+            }
+        });
+
         recordBtn.setOnClickListener((v)-> recordSpeech());
 
-        mTimebtn.setOnClickListener(new View.OnClickListener() {
+        timeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectTime();                                                                       //when we click on the choose time button it calls the select time method
             }
         });
 
-        mDatebtn.setOnClickListener(new View.OnClickListener() {
+        dateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 selectDate();
             }                                        //when we click on the choose date button it calls the select date method
         });
 
-        mSubmitbtn.setOnClickListener(new View.OnClickListener() {
+        saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String title = mTitledit.getText().toString().trim();                               //access the data from the input field
-                String date = mDatebtn.getText().toString().trim();                                 //access the date from the choose date button
-                String time = mTimebtn.getText().toString().trim();                                 //access the time from the choose time button
+                String title = titleEditText.getText().toString().trim();                               //access the data from the input field
+                String date = dateBtn.getText().toString().trim();                                 //access the date from the choose date button
+                String time = timeBtn.getText().toString().trim();                                 //access the time from the choose time button
 
-                if (title.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Please Enter text", Toast.LENGTH_SHORT).show();   //shows the toast if input field is empty
+                if (title.isEmpty() || title == null) {
+                    titleEditText.setError("Title is required");
+                    return;
                 } else {
-                    if (time.equals("time") || date.equals("date")) {                                               //shows toast if date and time are not selected
-                        Toast.makeText(getApplicationContext(), "Please select date and time", Toast.LENGTH_SHORT).show();
+                    if (time.isEmpty() || date.isEmpty()) {                                               //shows toast if date and time are not selected
+                        dateBtn.setError("Select date");
+                        timeBtn.setError("Select time");
+                        return;
                     } else {
                         processinsert(title, date, time);
-
                     }
                 }
                 Note note = new Note();
@@ -166,7 +199,7 @@ public class ReminderDetailsActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if (resultCode == RESULT_OK && data != null) {
                 ArrayList<String> text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                mTitledit.setText(text.get(0));
+                titleEditText.setText(text.get(0));
             }
         }
 
@@ -195,7 +228,7 @@ public class ReminderDetailsActivity extends AppCompatActivity {
     private void processinsert(String title, String date, String time) {
         String result = new dbManager(this).addreminder(title, date, time);                  //inserts the title,date,time into sql lite database
         setAlarm(title, date, time);                                                                //calls the set alarm method to set alarm
-        mTitledit.setText("");
+        titleEditText.setText("");
 
     }
 
@@ -206,8 +239,8 @@ public class ReminderDetailsActivity extends AppCompatActivity {
         TimePickerDialog timePickerDialog = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int i, int i1) {
-                timeTonotify = i + ":" + i1;                                                        //temp variable to store the time to set alarm
-                mTimebtn.setText(FormatTime(i, i1));                                                //sets the button text as selected time
+                timeToNotify = i + ":" + i1;                                                        //temp variable to store the time to set alarm
+                timeBtn.setText(FormatTime(i, i1));                                                //sets the button text as selected time
             }
         }, hour, minute, false);
         timePickerDialog.show();
@@ -221,7 +254,7 @@ public class ReminderDetailsActivity extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                mDatebtn.setText(day + "/" + (month + 1) + "/" + year);                             //sets the selected date as test for button
+                dateBtn.setText(day + "/" + (month + 1) + "/" + year);                             //sets the selected date as test for button
             }
         }, year, month, day);
         datePickerDialog.show();
@@ -265,7 +298,7 @@ public class ReminderDetailsActivity extends AppCompatActivity {
         intent.putExtra("date", time);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
-        String dateandtime = date + " " + timeTonotify;
+        String dateandtime = date + " " + timeToNotify;
         DateFormat formatter = new SimpleDateFormat("d/M/yyyy hh:mm");
         try {
             Date date1 = formatter.parse(dateandtime);

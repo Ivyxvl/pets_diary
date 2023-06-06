@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lavender"
+    android:background="@color/my_primary"
     tools:context=".ReminderActivity"
     android:padding="16dp">
 
@@ -42,13 +42,15 @@
         android:layout_height="match_parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:outlineSpotShadowColor="@color/my_primary"
+        app:borderWidth="2dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/create_reminder"
         android:backgroundTint="@color/white"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/ic_baseline_add_24"/>
+        android:src="@drawable/ic_baseline_alarm_add_24"/>
 
 
 </RelativeLayout>

@@ -1,4 +1,23 @@
 <resources>
     <string name="app_name">J-Diary</string>
-    <string name="lorem">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry known printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+    <string name="lorem">Application Called J-Diary. It has 2 main functions - Notes and Reminders. We can add notes, edit them and delete. We also can add Reminders, edit them and delete as we wish. At first users must register. Only then they will be able to use the app. The app is easy to use and its design is clear to everyone. The application has been created by Greta Tepanyan(Student in Samsung Innovation Campus). As a database i used firebase. The app icons taken from Flaticon. I hope you liked the application. For questions, you can contact our e-mail.</string>
+        <string name="action_settings">Settings</string>
+        <array name="operation_icon">
+            <item>"brush"</item>
+            <item>"eraser"</item>
+            <item>"color_pallet"</item>
+            <item>"cancel"</item>
+            <item>"text_input"</item>
+            <item>"undo"</item>
+            <item>"circle"</item>
+            <item>"square"</item>
+            <item>"oval"</item>
+            <item>"gallery"</item>
+            <item>"save"</item>
+        </array>
+        <string name="file_name">"File name"</string>
+    <string name="email">gretatepanyan768@gmail.com</string>
+    <string name="email_samsung">samsungcampus@uwcdilijan.am</string>
+
+
 </resources>

@@ -74,7 +74,6 @@ public class ReminderActivity extends AppCompatActivity {
     void showMenu() {
         PopupMenu popupMenu = new PopupMenu(ReminderActivity.this, menuBtn);
         popupMenu.getMenu().add("My notes");
-        popupMenu.getMenu().add("My account");
         popupMenu.getMenu().add("About us");
         popupMenu.getMenu().add("Logout");
         popupMenu.show();
@@ -87,9 +86,7 @@ public class ReminderActivity extends AppCompatActivity {
                     startActivity(new Intent(ReminderActivity.this, LoginActivity.class));
                     finish();
                     return true;
-                } else if (menuItem.getTitle()=="My account"){
-                    startActivity(new Intent(ReminderActivity.this, AccountActivity.class));
-                    return true;
+
                 } else if (menuItem.getTitle()=="My notes"){
                     startActivity(new Intent(ReminderActivity.this, MainActivity.class));
                     return true;

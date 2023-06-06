@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         // TODO Display menu
         PopupMenu popupMenu = new PopupMenu(MainActivity.this, menuBtn);
         popupMenu.getMenu().add("Reminders");
-        popupMenu.getMenu().add("My account");
         popupMenu.getMenu().add("About us");
         popupMenu.getMenu().add("Logout");
         popupMenu.show();
@@ -53,9 +52,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                     finish();
                     return true;
-                } else if (menuItem.getTitle()=="My account"){
-                    startActivity(new Intent(MainActivity.this, AccountActivity.class));
-                    return true;
+
                 } else if (menuItem.getTitle()=="Reminders"){
                     startActivity(new Intent(MainActivity.this, ReminderActivity.class));
                     return true;

@@ -3,6 +3,8 @@ package com.example.gafandfirebase;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +27,9 @@ public class NoteDetailsActivity extends AppCompatActivity {
     String title, content, docId;
     boolean isEditMode = false;
     TextView deleteNoteTextView;
+    private AlertDialog mDialog;
+    private AlertDialog.Builder mBuilder;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +60,29 @@ public class NoteDetailsActivity extends AppCompatActivity {
 
         saveNoteBtn.setOnClickListener((v)-> saveNote());
 
-        deleteNoteTextView.setOnClickListener((v)-> deleteNoteFromFirebase());
+        deleteNoteTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBuilder = new AlertDialog.Builder(NoteDetailsActivity.this);
+                mBuilder.setMessage("Are you sure you want to delete this note?");
+                mBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteNoteFromFirebase();
+                    }
+                });
 
+                mBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                mDialog = mBuilder.create();
+                mDialog.show();
+                mDialog.setCanceledOnTouchOutside(false);
+            }
+        });
 
     }
 

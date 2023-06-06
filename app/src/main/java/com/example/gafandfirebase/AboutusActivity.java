@@ -27,7 +27,6 @@ public class AboutusActivity extends AppCompatActivity {
     void showMenu() {
         PopupMenu popupMenu = new PopupMenu(AboutusActivity.this, menuBtn);
         popupMenu.getMenu().add("Reminders");
-        popupMenu.getMenu().add("My account");
         popupMenu.getMenu().add("My notes");
         popupMenu.getMenu().add("Logout");
         popupMenu.show();
@@ -39,9 +38,6 @@ public class AboutusActivity extends AppCompatActivity {
                     FirebaseAuth.getInstance().signOut();
                     startActivity(new Intent(AboutusActivity.this, LoginActivity.class));
                     finish();
-                    return true;
-                } else if (menuItem.getTitle()=="My account"){
-                    startActivity(new Intent(AboutusActivity.this, AccountActivity.class));
                     return true;
                 } else if (menuItem.getTitle()=="Reminders"){
                     startActivity(new Intent(AboutusActivity.this, ReminderActivity.class));

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:id="@+id/layout"
         android:layout_width="fill_parent"
         android:layout_height="64dp"
@@ -19,13 +19,12 @@
 
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="60dp"
-            android:layout_height="45dp"
+            android:layout_width="wrap_content"
+            android:layout_height="49dp"
             android:layout_alignParentLeft="true"
-            android:layout_marginLeft="-10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginLeft="0dp"
             android:layout_marginBottom="5dp"
-            android:src="@drawable/icon" />
+            android:src="@mipmap/ic_launcherr" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -39,19 +38,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:text="Flashlight"
-                android:textColor="#000000"
-                android:textSize="13sp" />
+                android:textStyle="bold"
+                android:textColor="@color/teal_200"
+                android:textSize="15sp" />
 
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/message"
-                android:layout_alignParentLeft="true"
-                android:layout_marginTop="3dp"
-                android:text="90% Charging"
-                android:textColor="#000000"
-                android:textSize="13sp" />
+
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lavender"
+    android:background="@color/my_primary"
     tools:context=".MainActivity"
     android:padding="16dp">
 
@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/page_title"
-            android:text="My Notes"
+            android:text="Notes"
             android:textSize="32sp"
             android:textColor="@color/white"
             android:textStyle="bold"/>
@@ -44,9 +44,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/add_note_btn"
+        app:borderWidth="2dp"
+
+        android:outlineSpotShadowColor="@color/my_primary"
         android:backgroundTint="@color/white"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:src="@drawable/ic_baseline_add_24"/>
+        android:src="@drawable/ic_baseline_note_add_24"/>
 
 </RelativeLayout>

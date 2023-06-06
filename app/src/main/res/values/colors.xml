@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="my_primary">#deaaff</color>
-    <color name="lavender">#f3c4fb</color>
+    <color name="my_primary">#FCC8D1</color>
 
 
-    <color name="teal_200">#deaaff</color>
-    <color name="teal_700">#deaaff</color>
+    <color name="teal_200">#D14D72</color>
+    <color name="teal_700">#D14D72</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
