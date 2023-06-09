@@ -1,11 +1,16 @@
 package com.example.gafandfirebase;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,6 +57,12 @@ public class ReminderActivity extends AppCompatActivity {
         while (cursor.moveToNext()) {
             Model model = new Model(cursor.getString(1), cursor.getString(2), cursor.getString(3));
             dataholder.add(model);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+            if (ContextCompat.checkSelfPermission(ReminderActivity.this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(ReminderActivity.this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, 101);
+            }
         }
     }
 

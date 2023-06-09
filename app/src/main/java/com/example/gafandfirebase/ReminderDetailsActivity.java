@@ -52,7 +52,6 @@ public class ReminderDetailsActivity extends AppCompatActivity {
     private AlertDialog.Builder mBuilder;
 
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -297,7 +296,7 @@ public class ReminderDetailsActivity extends AppCompatActivity {
         intent.putExtra("time", date);
         intent.putExtra("date", time);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
         String dateandtime = date + " " + timeToNotify;
         DateFormat formatter = new SimpleDateFormat("d/M/yyyy hh:mm");
         try {
